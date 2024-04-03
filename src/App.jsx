@@ -14,7 +14,7 @@ function App() {
 
 
   return (
-    <div className='p-6'>
+    <div className='p-6 max-md:p-2 bg-gray-100 h-svh'>
   <Navbar />
       <Routes>
           <Route path="/" element={<Services />} />
