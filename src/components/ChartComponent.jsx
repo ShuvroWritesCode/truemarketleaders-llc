@@ -57,7 +57,7 @@ const ChartComponent = () => {
       const chartOptions = {
         layout: {
           textColor: 'black',
-          background: { type: ColorType.Solid, color: 'white' },
+          background: { type: ColorType.Solid, color: '#4a5568' },
         },
         width: containerRef.current.offsetWidth,
         height: chartHeight,

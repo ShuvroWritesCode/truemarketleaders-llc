@@ -9,59 +9,77 @@ const Services = () => {
     setShowContent(!showContent);
   };
   const stockDetails = [
-    { symbol: 'AAPL', last: 145.73, change: 0.32, changePercent: 0.22 },
-    { symbol: 'GOOGL', last: 2815.23, change: -5.67, changePercent: -0.21 },
-    { symbol: 'MSFT', last: 325.68, change: 1.45, changePercent: 0.45 },
+    { symbol: "AAPL", last: 145.73, change: 0.32, changePercent: 0.22 },
+    { symbol: "GOOGL", last: 2815.23, change: -5.67, changePercent: -0.21 },
+    { symbol: "MSFT", last: 325.68, change: 1.45, changePercent: 0.45 },
+    { symbol: "AAPL", last: 145.73, change: 0.32, changePercent: 0.22 },
+    { symbol: "GOOGL", last: 2815.23, change: -5.67, changePercent: -0.21 },
+    { symbol: "MSFT", last: 325.68, change: 1.45, changePercent: 0.45 },
+    { symbol: "AAPL", last: 145.73, change: 0.32, changePercent: 0.22 },
+    { symbol: "GOOGL", last: 2815.23, change: -5.67, changePercent: -0.21 },
+    { symbol: "MSFT", last: 325.68, change: 1.45, changePercent: 0.45 },
+    { symbol: "AAPL", last: 145.73, change: 0.32, changePercent: 0.22 },
+    { symbol: "GOOGL", last: 2815.23, change: -5.67, changePercent: -0.21 },
+    { symbol: "MSFT", last: 325.68, change: 1.45, changePercent: 0.45 },
+    { symbol: "AAPL", last: 145.73, change: 0.32, changePercent: 0.22 },
+    { symbol: "GOOGL", last: 2815.23, change: -5.67, changePercent: -0.21 },
+    { symbol: "MSFT", last: 325.68, change: 1.45, changePercent: 0.45 },
     // Add more stock details as needed
   ];
   return (
     <div className="container px-4 max-md:px-1 py-8 mx-0 h-full">
       <div className="flex max-md:hidden h-full">
         {/* Left Section for Chart Area */}
-        <div className="md:w-3/4 max-md:w-full h-full bg-blue-900">
-          <div className="bg-transparent rounded-lg p-4">
+        <div className="md:w-3/4 max-md:w-full h-full bg-gradient-to-br from-gray-700 to-gray-800 p-4">
+          
             {/* Chart Area */}
             <ChartComponent />
-          </div>
+          
         </div>
         {/* Right Section - Split Vertically */}
-        <div className="w-1/4 ml-4">
+        <div className="w-1/4 ml-4 h-full">
           {/* Upper Half */}
-          <div className="mb-4 bg-transparent">
-      <div className="bg-transparent rounded-lg shadow-md p-4">
-        {/* Upper Half Content */}
-        <div className="flex justify-between mb-2">
-          <span className="font-semibold text-gray-800">Symbol</span>
-          <span className="font-semibold text-gray-800">Last</span>
-          <span className="font-semibold text-gray-800">Chg</span>
-          <span className="font-semibold text-gray-800">Chg%</span>
-        </div>
-        {stockDetails.map((detail, index) => (
-          <div className="flex justify-between mb-2" key={index}>
-            <span className="text-sm">{detail.symbol}</span>
-            <span className="text-sm">{detail.last}</span>
-            <span className={`text-sm ${detail.change > 0 ? 'text-green-800' : 'text-red-800'}`}>
-              {detail.change}
-            </span>
-            <span className={`text-sm ${detail.change > 0 ? 'text-green-800' : 'text-red-800'}`}>
-              ({detail.changePercent}%)
-            </span>
-          </div>
-        ))}
-        {/* Add more rows as needed */}
-      </div>
-    </div>
-          {/* Lower Half */}
-          <div className="bg-transparent">
-            <div className="bg-transparent rounded-lg shadow-md p-4">
-              {/* Lower Half Content */}
-              <div className="h-40 border"></div>
+          <div className="mb-4 h-[90%] overflow-auto bg-transparent">
+          <div className="md:w-3/4 max-md:w-full h-full bg-gradient-to-br from-gray-700 to-gray-800 p-4">
+              {/* Upper Half Content */}
+              <div className="flex justify-between mb-2">
+                <span className="font-semibold text-white">Symbol</span>
+                <span className="font-semibold text-white">Last</span>
+                <span className="font-semibold text-white">Chg</span>
+                <span className="font-semibold text-white">Chg%</span>
+              </div>
+              {stockDetails.map((detail, index) => (
+                <div className="flex justify-between text-white mb-2" key={index}>
+                  <span className="text-sm">{detail.symbol}</span>
+                  <span className="text-sm">{detail.last}</span>
+                  <span
+                    className={`text-sm ${
+                      detail.change > 0 ? "text-green-800" : "text-red-800"
+                    }`}
+                  >
+                    {detail.change}
+                  </span>
+                  <span
+                    className={`text-sm ${
+                      detail.change > 0 ? "text-green-800" : "text-red-800"
+                    }`}
+                  >
+                    ({detail.changePercent}%)
+                  </span>
+                </div>
+              ))}
+              {/* Add more rows as needed */}
             </div>
           </div>
+          {/* Lower Half */}
+          {/* <div className="bg-transparent h-1/2"> */}
+            {/* <div className="bg-gray-100 rounded-lg shadow-md p-4"> */}
+              {/* Lower Half Content */}
+              {/* <div className="h-40 border"></div> */}
+            {/* </div> */}
+          {/* </div> */}
         </div>
       </div>
-
-
 
       <div className="flex-col md:hidden h-full relative">
         {/* Button for toggling content */}
@@ -82,29 +100,37 @@ const Services = () => {
         </div>
         {/* Override Content */}
         {showContent && (
-          <div className="md:w-3/4 max-md:w-full bg-transparent absolute top-12 w-full z-10">
-            <div className="bg-transparent rounded-lg shadow-md p-4">
-        {/* Upper Half Content */}
-        <div className="flex justify-between mb-2">
-          <span className="font-semibold text-gray-800">Symbol</span>
-          <span className="font-semibold text-gray-800">Last</span>
-          <span className="font-semibold text-gray-800">Chg</span>
-          <span className="font-semibold text-gray-800">Chg%</span>
-        </div>
-        {stockDetails.map((detail, index) => (
-          <div className="flex justify-between mb-2" key={index}>
-            <span className="text-sm">{detail.symbol}</span>
-            <span className="text-sm">{detail.last}</span>
-            <span className={`text-sm ${detail.change > 0 ? 'text-green-800' : 'text-red-800'}`}>
-              {detail.change}
-            </span>
-            <span className={`text-sm ${detail.change > 0 ? 'text-green-800' : 'text-red-800'}`}>
-              ({detail.changePercent}%)
-            </span>
-          </div>
-        ))}
-        {/* Add more rows as needed */}
-      </div>
+          <div className="md:w-3/4 max-md:w-full bg-transparent absolute top-12 w-full h-full overflow-auto z-10">
+            <div className="bg-gray-100 rounded-lg shadow-md p-4">
+              
+              <div className="flex justify-between mb-2">
+                <span className="font-semibold text-gray-800">Symbol</span>
+                <span className="font-semibold text-gray-800">Last</span>
+                <span className="font-semibold text-gray-800">Chg</span>
+                <span className="font-semibold text-gray-800">Chg%</span>
+              </div>
+              {stockDetails.map((detail, index) => (
+                <div className="flex justify-between mb-2" key={index}>
+                  <span className="text-sm">{detail.symbol}</span>
+                  <span className="text-sm">{detail.last}</span>
+                  <span
+                    className={`text-sm ${
+                      detail.change > 0 ? "text-green-800" : "text-red-800"
+                    }`}
+                  >
+                    {detail.change}
+                  </span>
+                  <span
+                    className={`text-sm ${
+                      detail.change > 0 ? "text-green-800" : "text-red-800"
+                    }`}
+                  >
+                    ({detail.changePercent}%)
+                  </span>
+                </div>
+              ))}
+              {/* Add more rows as needed */}
+            </div>
           </div>
         )}
       </div>
