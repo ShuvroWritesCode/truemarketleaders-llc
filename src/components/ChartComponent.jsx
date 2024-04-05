@@ -20,7 +20,8 @@ const ChartComponent = () => {
       // Fetch data from the backend API endpoint
       const response = await axios.get('http://localhost:3000/api/show');
       // Set the data state with only the first 10 items of the fetched data
-      setData(response.data.slice(0, 1000));
+      setData(response.data);
+      console.log(response.data);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
