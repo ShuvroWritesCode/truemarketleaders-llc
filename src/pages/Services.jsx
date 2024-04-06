@@ -64,6 +64,7 @@ const Services = () => {
         {/* Left Section for Chart Area */}
         <div className="md:w-3/4 max-md:w-full h-full bg-gradient-to-br from-gray-700 to-gray-800 p-4">
           {/* Chart Area */}
+          <p>Selected Stock: {selectedStock}</p>
           <ChartComponent symbol={selectedStock} />
         </div>
         {/* Right Section - Split Vertically */}
