@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { ColorType, createChart } from 'lightweight-charts';
 import axios from 'axios';
 
-const ChartComponent = ({symbol}) => {
+const ChartComponent = ({ symbol }) => {
   //   const [data, setData] = useState([]);
   const containerRef = useRef(null);
   const [chartWidth, setChartWidth] = useState(800);
@@ -11,18 +11,19 @@ const ChartComponent = ({symbol}) => {
   const [data, setData] = useState([]);
   const [sentSymbol, setSentSymbol] = useState(null);
 
-
   //   useEffect(() => {
   //     // Fetch data from MongoDB API
   //     // fetchDataFromAPI();
   //   }, []);
 
-
   const fetchDataFromAPI = async () => {
+    console.log(symbol);
     try {
       // Fetch data from the backend API endpoint
-      const response = await axios.get('http://localhost:3000/api/show');
-      // Set the data state with only the first 10 items of the fetched data
+      const response = await axios.post('http://localhost:3000/api/show', {
+        ticker: symbol,
+      });
+      // Set the data state with the response data
       setData(response.data);
       console.log(response.data);
     } catch (error) {
@@ -35,13 +36,13 @@ const ChartComponent = ({symbol}) => {
   useEffect(() => {
     // Call the fetch function when the component mounts
     fetchDataFromAPI();
-    
-  }, []);
+  }, [symbol]);
 
-  useEffect(()=>{
+  useEffect(() => {
     // setSentSymbol(symbol);
-    console.log(symbol);
-  },[symbol])
+    // console.log(symbol);
+  }, [symbol]);
+
   useEffect(() => {
     if (data.length > 0) {
       // Map the fetched data to candlestick data format and sort by time
