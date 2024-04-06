@@ -3,17 +3,20 @@ import React, { useEffect, useRef, useState } from 'react';
 import { ColorType, createChart } from 'lightweight-charts';
 import axios from 'axios';
 
-const ChartComponent = () => {
+const ChartComponent = ({symbol}) => {
   //   const [data, setData] = useState([]);
   const containerRef = useRef(null);
   const [chartWidth, setChartWidth] = useState(800);
   const [chartHeight, setChartHeight] = useState(400);
   const [data, setData] = useState([]);
+  const [sentSymbol, setSentSymbol] = useState(null);
+
 
   //   useEffect(() => {
   //     // Fetch data from MongoDB API
   //     // fetchDataFromAPI();
   //   }, []);
+
 
   const fetchDataFromAPI = async () => {
     try {
@@ -32,7 +35,13 @@ const ChartComponent = () => {
   useEffect(() => {
     // Call the fetch function when the component mounts
     fetchDataFromAPI();
+    
   }, []);
+
+  useEffect(()=>{
+    // setSentSymbol(symbol);
+    console.log(symbol);
+  },[symbol])
   useEffect(() => {
     if (data.length > 0) {
       // Map the fetched data to candlestick data format and sort by time
@@ -87,4 +96,4 @@ const ChartComponent = () => {
   return <div ref={containerRef} />;
 };
 
-export default ChartComponent;
+export default React.memo(ChartComponent);

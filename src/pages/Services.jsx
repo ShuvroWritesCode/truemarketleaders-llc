@@ -5,6 +5,7 @@ import axios from 'axios';
 
 const Services = () => {
   const [showContent, setShowContent] = useState(false);
+  const [selectedStock, setSelectedStock] = useState('');
 
   const toggleContent = () => {
     setShowContent(!showContent);
@@ -45,6 +46,11 @@ const Services = () => {
     }
   };
 
+  const handleDetailClick = (symbol) => {
+    // console.log('Clicked detail:', symbol);
+    setSelectedStock(symbol);
+  };
+
   console.log(stockDetails);
   // console.log(data);
 
@@ -58,7 +64,7 @@ const Services = () => {
         {/* Left Section for Chart Area */}
         <div className="md:w-3/4 max-md:w-full h-full bg-gradient-to-br from-gray-700 to-gray-800 p-4">
           {/* Chart Area */}
-          <ChartComponent />
+          <ChartComponent symbol={selectedStock} />
         </div>
         {/* Right Section - Split Vertically */}
         <div className="w-1/4 ml-4 h-full">
@@ -74,8 +80,9 @@ const Services = () => {
               </div>
               {stockDetails.map((detail, index) => (
                 <div
-                  className="flex justify-between text-white mb-2"
+                  className="flex justify-between text-white mb-2 cursor-pointer"
                   key={index}
+                  onClick={() => handleDetailClick(detail.symbol)}
                 >
                   <span className="text-sm">{detail.symbol}</span>
                   <span className="text-sm">{detail.last}</span>
