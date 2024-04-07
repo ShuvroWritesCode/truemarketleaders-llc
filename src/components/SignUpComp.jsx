@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 // import { auth } from '../utlis/firebase';
-import {
-  signInWithPopup,
-  GoogleAuthProvider,
-  createUserWithEmailAndPassword,
-  sendEmailVerification,
-} from 'firebase/auth';
+
 
 const SignUpComp = () => {
   const navigate = useNavigate();
@@ -26,77 +22,37 @@ const SignUpComp = () => {
     e.preventDefault();
     const { email, password } = formData;
     try {
-      
-
-      await createUserWithEmailAndPassword(auth, email, password).then(
-        async (result) => {
-          await sendEmailVerification(result.user);
-
-
-          // Loop until email is verified
-          while (!result.user.emailVerified) {
-            // Check email verification status every second
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-
-            // Refresh the user object to get the latest emailVerified status
-            await result.user.reload();
-          }
-
-          // Making the API call to sign up
-          const response = await axios.post(
-            'http://localhost:3000/api/signup',
-            // 'https://api.practicepartner.ai/api/signup',
-            formData
-          );
-
-
-          // Navigate to login page
-          navigate('/login');
-        }
+      const response = await axios.post(
+        'http://localhost:3000/api/signup',
+        formData
       );
+
+
+      // Navigate to login page
+      navigate('/login');
     } catch (error) {
-      // console.error('Signup error:', error.message);
-      // Handle error (e.g., show error message)
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        const status = error.response.status;
+        if (status === 400) {
+          // Bad request (e.g., user already exists)
+          toast.error('User already exists');
+        } else {
+          // Handle other error codes if needed
+          toast.error('An error occurred. Please try again later.');
+        }
+      } else if (error.request) {
+        // The request was made but no response was received
+        toast.error('No response received from the server.');
+      } else {
+        // Something else happened in making the request that triggered an error
+        // console.error('Error:', error.message);
+        toast.error('An error occurred. Please try again later.');
+      }
     }
   };
 
-
-
-  // const { isAuthenticated, login, logout } = useContext(AuthContext);
-  const provider = new GoogleAuthProvider();
-  const handleClick = async (e) => {
-    try {
-      const data = await signInWithPopup(auth, provider);
-      
-
-      const userData = {
-        name: data.user.displayName,
-        email: data.user.email,
-        // password: req.body.password,
-        isFree: true,
-        freePrompts: 10,
-      };
-
-      // setEmail(true);
-      navigate('/');
-      await axios.post(
-        'http://localhost:3000/api/checkAndStoreUser',
-
-        JSON.stringify(userData),
-        {
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          withCredentials: true, // Set to true to include cookies in the request
-          credentials: 'include', // Indicates that CORS should include credentials
-        }
-      );
-    } catch (error) {
-      console.error('Error during login:', error);
-      // Handle errors appropriately (e.g., display an error message)
-    }
-  };
 
 
   return (
@@ -161,7 +117,7 @@ const SignUpComp = () => {
           <Link to="/login">Already have an account?</Link>
         </div>
         <div className="self-center mt-4 text-white">Or</div>
-        <div className="flex justify-center">
+        {/* <div className="flex justify-center">
           <button
             onClick={handleClick}
             className="flex justify-between items-center px-10 py-4 mt-4 max-w-full text-sm leading-5 text-gray-600 whitespace-nowrap rounded-3xl bg-slate-50 w-[250px]"
@@ -174,7 +130,7 @@ const SignUpComp = () => {
             />
             <div className="grow text-left pl-4">Sign up with Google</div>
           </button>
-        </div>
+        </div> */}
 
         <div className="mt-4 text-white max-md:max-w-full">
           By signing up, you are indicating that you have read and agree to the{' '}

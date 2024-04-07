@@ -19,26 +19,26 @@ const ChartComponent = ({ symbol }) => {
   //     // fetchDataFromAPI();
   //   }, []);
 
-  const resize = useCallback(() => {
-    setTimeout(() => {
-      setChartWidth(chartParentRef.current?.offsetWidth)
-      // console.log(chartWidth)
+  // const resize = useCallback(() => {
+  //   setTimeout(() => {
+  //     setChartWidth(chartParentRef.current?.offsetWidth)
+  //     // console.log(chartWidth)
       
-      // setChartWidth(chartParentRef.current?.offsetWidth)
-    }, 300)
-  }, [])
+  //     // setChartWidth(chartParentRef.current?.offsetWidth)
+  //   }, 300)
+  // }, [])
 
-  useEffect(() => {
-    /* Now we add an event listener, to execute our function everytime 
-    the user window resizes */
-    window.addEventListener('resize', resize)
-    // Execute the function when the component mounts
-    resize()
-    // Remove the event listener when the component unmounts
-    return () => {
-       window.removeEventListener('resize', resize)
-    }
-  }, [resize])
+  // useEffect(() => {
+  //   /* Now we add an event listener, to execute our function everytime 
+  //   the user window resizes */
+  //   window.addEventListener('resize', resize)
+  //   // Execute the function when the component mounts
+  //   resize()
+  //   // Remove the event listener when the component unmounts
+  //   return () => {
+  //      window.removeEventListener('resize', resize)
+  //   }
+  // }, [resize])
 
 
   const fetchDataFromAPI = async () => {
@@ -109,14 +109,22 @@ const ChartComponent = ({ symbol }) => {
 
       candlestickSeries.setData(mappedData, [chartWidth, chartHeight]);
 
+      const resizeObserver = new ResizeObserver(entries => {
+        if (entries.length === 0 || entries[0].target !== containerRef.current) { return; }
+        const newRect = entries[0].contentRect;
+        chart.applyOptions({ height: newRect.height, width: newRect.width });
+      });
+      resizeObserver.observe(containerRef.current);
+
       chart.timeScale().fitContent();
 
       // Cleanup function to remove the chart on component unmount
       return () => {
         chart.remove();
+        resizeObserver.disconnect();
       };
     }
-  }, [data, chartWidth]); // Dependency on the 'data' array
+  }, [data]); // Dependency on the 'data' array
 
   return <div className='rounded-lg' ref={containerRef} />;
 };

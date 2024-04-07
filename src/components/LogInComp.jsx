@@ -1,52 +1,18 @@
 import axios from 'axios';
 
 import { Link, useNavigate } from 'react-router-dom';
-// import { auth } from '../utlis/firebase';
-import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { toast } from 'react-toastify';
 import { useState } from 'react';
 
-const LogInComp = ({ setEmail,setEmailAddress }) => {
+const LogInComp = ({ setIsLoggedIn }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
   const navigate = useNavigate();
   // const { isAuthenticated, login, logout } = useContext(AuthContext);
-  const provider = new GoogleAuthProvider();
-  const handleClick = async (e) => {
-    try {
-      const data = await signInWithPopup(auth, provider);
-      
-
-      const userData = {
-        name: data.user.displayName,
-        email: data.user.email,
-        // password: req.body.password,
-        isFree: true,
-        freePrompts: 10,
-      };
-
-      setEmail(true);
-      navigate('/services');
-       await axios.post(
-        'http://localhost:3000/api/checkAndStoreUser',
-
-        JSON.stringify(userData),
-        {
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          withCredentials: true, // Set to true to include cookies in the request
-          credentials: 'include', // Indicates that CORS should include credentials
-        }
-      );
-    } catch (error) {
-      console.error('Error during login:', error);
-      // Handle errors appropriately (e.g., display an error message)
-    }
-  };
+  
+  
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -58,36 +24,38 @@ const LogInComp = ({ setEmail,setEmailAddress }) => {
       const response = await axios.post(
         'http://localhost:3000/api/login',
         JSON.stringify(formData),
-        {
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          withCredentials: true, // Set to true to include cookies in the request
-          credentials: 'include', // Indicates that CORS should include credentials
-        }
+        // {
+        //   headers: {
+        //     Accept: 'application/json',
+        //     'Content-Type': 'application/json',
+        //   },
+        //   withCredentials: true,
+        //   credentials: 'include',
+        // }
       );
-      setEmail(true);
-      setEmailAddress(response.data.email);
-      navigate('/generate-image');
+      setIsLoggedIn(true);
+      navigate('/services');
       toast.success('Login Successful');
-      // Handle success (e.g., redirect user)
     } catch (error) {
-      if (error.message === 'Request failed with status code 422') {
-        toast.error('Email and password are required');
+      if (error.response) {
+        const status = error.response.status;
+        if (status === 401) {
+          toast.error('Incorrect Password');
+        } else if (status === 404) {
+          toast.error('User not found');
+        } else if (status === 422) {
+          toast.error('Email and password are required');
+        } else if (status === 500) {
+          toast.error('Internal Server Error');
+        } else {
+          toast.error('An error occurred');
+        }
+      } else {
+        toast.error('Network Error');
       }
-      if (error.message === 'Request failed with status code 404') {
-        toast.error('User not found');
-      }
-      if (error.message === 'Request failed with status code 500') {
-        toast.error('User not found');
-      }
-      if (error.message === 'Request failed with status code 401') {
-        toast.error('Incorrect Password');
-      }
-      // Handle error (e.g., show error message)
     }
   };
+  
   return (
     <div className="flex flex-col p-4 max-w-[603px] text-white">
       <div className="self-center text-6xl whitespace-nowrap leading-[63.84px] max-md:text-4xl pb-5">
@@ -134,7 +102,7 @@ const LogInComp = ({ setEmail,setEmailAddress }) => {
           Already have an account?
         </div>
         <div className="self-center mt-4 text-white">Or</div>
-        <div className="flex justify-center">
+        {/* <div className="flex justify-center">
           <button
             onClick={handleClick}
             className="flex justify-between items-center px-10 py-4 mt-4 max-w-full text-sm leading-5 text-gray-600 whitespace-nowrap rounded-3xl bg-slate-50 w-[250px]"
@@ -147,7 +115,7 @@ const LogInComp = ({ setEmail,setEmailAddress }) => {
             />
             <div className="grow text-left pl-4">Sign up with Google</div>
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );

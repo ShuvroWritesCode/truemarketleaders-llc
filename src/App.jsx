@@ -1,5 +1,5 @@
 
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, Navigate } from 'react-router-dom'
 import Home from './pages/Home'
 import About from './pages/About'
 import Login from './pages/Login'
@@ -13,10 +13,8 @@ import Plan from './pages/Plan'
 
 
 function App() {
-  const [email, setEmail] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(null);
   const [emailAddress, setEmailAddress] = useState('');
-  const [loading, setLoading] = useState(true);
-  const [isSubscribed, setIsSubscribed] = useState(false);
 
   return (
 <>
@@ -26,11 +24,11 @@ function App() {
       <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about-us" element={<About />} />
-          <Route path="/login" element={<Login setEmail={setEmail} setEmailAddress={setEmailAddress} />} />
+          <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/signup" element={<SignUp />} />
           {/* <Route path="/purchase" element={<Purchase />} /> */}
-          <Route path="/pricing" element={<Plan isLoggedIn={email} emailAddress={emailAddress} />} />
-          <Route path="/services" element={<Services />} />
+          <Route path="/pricing" element={<Plan isLoggedIn={setIsLoggedIn} emailAddress={emailAddress} />} />
+          <Route path="/services" element={isLoggedIn? <Services /> : <Navigate to='/login' /> } />
       </Routes>
       <Footer />
       </div>
