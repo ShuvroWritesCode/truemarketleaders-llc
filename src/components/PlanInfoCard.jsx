@@ -163,7 +163,7 @@ function PlanInfoCard({ planFeatures, isLoggedIn, emailAddress }) {
           <div className="flex flex-col ml-5 w-[38%] max-md:ml-0 max-md:w-full">
             <div className="flex flex-col grow max-md:mt-10">
               <div className="flex flex-col md:self-end max-md:self-center md:text-right max-md:text-center">
-                <div className="text-6xl text-blue-700 leading-[64px] max-md:text-4xl">
+                <div className="text-6xl text-blue-200 leading-[64px] max-md:text-4xl">
                   {selectedPeriod === "Quarterly" && "$350"}
                   {selectedPeriod === "Bi-Annually" && "$600"}
                   {selectedPeriod === "Annually" && "$980"}
@@ -181,7 +181,7 @@ function PlanInfoCard({ planFeatures, isLoggedIn, emailAddress }) {
               </div>
               <button
                 onClick={handleSubscription}
-                className="justify-center items-center px-16 py-5 mt-2 text-base font-bold whitespace-nowrap bg-gray-700 rounded-xl text-slate-50 max-md:px-5"
+                className="justify-center items-center px-16 py-5 mt-2 text-base font-bold whitespace-nowrap bg-gradient-to-br from-gray-500 to-gray-600 rounded-xl text-slate-50 max-md:px-5"
               >
                 {" "}
                 Subscribe{" "}

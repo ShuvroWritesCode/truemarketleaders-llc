@@ -59,19 +59,24 @@ const Services = () => {
     fetchDataFromAPI();
   }, []);
   return (
-    <div className="container px-4 max-md:px-1 py-8 mx-0 h-full">
-      <div className="flex max-md:hidden h-full">
+    <div className="container px-8 max-md:px-1 py-8 mx-0 h-svh">
+      <div className="flex gap-4 max-md:hidden h-full">
         {/* Left Section for Chart Area */}
-        <div className="md:w-3/4 max-md:w-full h-full bg-gradient-to-br from-gray-700 to-gray-800 p-4">
+        <div id='parentDiv' className="w-full resize-x h-full bg-gradient-to-br rounded-lg from-gray-700 to-gray-800 p-5">
           {/* Chart Area */}
-          <p>Selected Stock: {selectedStock}</p>
+          <p className='text-white my-2'>Selected Stock: {selectedStock}</p>
           <ChartComponent symbol={selectedStock} />
         </div>
         {/* Right Section - Split Vertically */}
-        <div className="w-1/4 ml-4 h-full">
+        <div className="w-[30%] resize-x ml-2 h-full">
           {/* Upper Half */}
-          <div className="mb-4 h-[90%] overflow-auto bg-transparent">
-            <div className="md:w-3/4 max-md:w-full h-full bg-gradient-to-br from-gray-700 to-gray-800 p-4">
+          <div className="mb-4 h-[100%] bg-transparent">
+          <div
+        className="md:w-full h-full rounded-lg bg-gradient-to-br custom-scrollbar overflow-hidden from-gray-700 to-gray-800 p-6"
+        // style={{ overflowY: 'hidden' }}
+        onMouseEnter={(e) => e.currentTarget.style.overflowY = 'auto'}
+        onMouseLeave={(e) => e.currentTarget.style.overflowY = 'hidden'}
+      >
               {/* Upper Half Content */}
               <div className="flex justify-between mb-2">
                 <span className="font-semibold text-white">Symbol</span>
@@ -89,14 +94,14 @@ const Services = () => {
                   <span className="text-sm">{detail.last}</span>
                   <span
                     className={`text-sm ${
-                      detail.change > 0 ? 'text-green-800' : 'text-red-800'
+                      detail.change > 0 ? 'text-green-500' : 'text-red-500'
                     }`}
                   >
                     {detail.change}
                   </span>
                   <span
                     className={`text-sm ${
-                      detail.change > 0 ? 'text-green-800' : 'text-red-800'
+                      detail.change > 0 ? 'text-green-500' : 'text-red-500'
                     }`}
                   >
                     ({detail.changePercent}%)

@@ -19,19 +19,24 @@ function App() {
   const [isSubscribed, setIsSubscribed] = useState(false);
 
   return (
-    <div className='p-6 max-md:p-2 bg-gray-900 h-svh'>
+<>
+
+  <div className=' bg-gray-900 flex flex-col'>
   <Navbar />
       <Routes>
-          <Route path="/" element={<Services />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/about-us" element={<About />} />
           <Route path="/login" element={<Login setEmail={setEmail} setEmailAddress={setEmailAddress} />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/purchase" element={<Purchase />} />
-          <Route path="/plan" element={<Plan isLoggedIn={email} emailAddress={emailAddress} />} />
+          {/* <Route path="/purchase" element={<Purchase />} /> */}
+          <Route path="/pricing" element={<Plan isLoggedIn={email} emailAddress={emailAddress} />} />
           <Route path="/services" element={<Services />} />
       </Routes>
       <Footer />
-    </div>
+      </div>
+
+    
+    </>
   )
 }
 

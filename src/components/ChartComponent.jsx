@@ -1,20 +1,45 @@
 // ChartComponent.jsx
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { ColorType, createChart } from 'lightweight-charts';
 import axios from 'axios';
 
 const ChartComponent = ({ symbol }) => {
   //   const [data, setData] = useState([]);
   const containerRef = useRef(null);
-  const [chartWidth, setChartWidth] = useState(800);
-  const [chartHeight, setChartHeight] = useState(400);
+  const chartParentRef = useRef(
+    document.getElementById('parentDiv')
+  );
+  const [chartWidth, setChartWidth] = useState(700);
+  const [chartHeight, setChartHeight] = useState(550);
   const [data, setData] = useState([]);
-  const [sentSymbol, setSentSymbol] = useState(null);
+  
 
   //   useEffect(() => {
   //     // Fetch data from MongoDB API
   //     // fetchDataFromAPI();
   //   }, []);
+
+  const resize = useCallback(() => {
+    setTimeout(() => {
+      setChartWidth(chartParentRef.current?.offsetWidth)
+      // console.log(chartWidth)
+      
+      // setChartWidth(chartParentRef.current?.offsetWidth)
+    }, 300)
+  }, [])
+
+  useEffect(() => {
+    /* Now we add an event listener, to execute our function everytime 
+    the user window resizes */
+    window.addEventListener('resize', resize)
+    // Execute the function when the component mounts
+    resize()
+    // Remove the event listener when the component unmounts
+    return () => {
+       window.removeEventListener('resize', resize)
+    }
+  }, [resize])
+
 
   const fetchDataFromAPI = async () => {
     console.log(symbol);
@@ -38,10 +63,8 @@ const ChartComponent = ({ symbol }) => {
     fetchDataFromAPI();
   }, [symbol]);
 
-  useEffect(() => {
-    // setSentSymbol(symbol);
-    // console.log(symbol);
-  }, [symbol]);
+  
+
 
   useEffect(() => {
     if (data.length > 0) {
@@ -64,16 +87,16 @@ const ChartComponent = ({ symbol }) => {
         });
 
       console.log(mappedData);
-
       const chartOptions = {
         layout: {
           textColor: 'black',
-          background: { type: ColorType.Solid, color: '#4a5568' },
+          background: { type: ColorType.Solid, color: '#2B3544' },
         },
-        width: containerRef.current.offsetWidth,
-        height: chartHeight,
+        width: chartWidth,
+        height: chartHeight
       };
       const chart = createChart(containerRef.current, chartOptions);
+      
 
       const candlestickSeries = chart.addCandlestickSeries({
         upColor: '#26a69a',
@@ -82,6 +105,7 @@ const ChartComponent = ({ symbol }) => {
         wickUpColor: '#26a69a',
         wickDownColor: '#ef5350',
       });
+
 
       candlestickSeries.setData(mappedData, [chartWidth, chartHeight]);
 
@@ -92,9 +116,9 @@ const ChartComponent = ({ symbol }) => {
         chart.remove();
       };
     }
-  }, [data]); // Dependency on the 'data' array
+  }, [data, chartWidth]); // Dependency on the 'data' array
 
-  return <div ref={containerRef} />;
+  return <div className='rounded-lg' ref={containerRef} />;
 };
 
 export default React.memo(ChartComponent);

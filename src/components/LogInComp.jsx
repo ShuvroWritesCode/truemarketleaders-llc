@@ -89,17 +89,17 @@ const LogInComp = ({ setEmail,setEmailAddress }) => {
     }
   };
   return (
-    <div className="flex flex-col p-4 max-w-[603px] text-zinc-900">
+    <div className="flex flex-col p-4 max-w-[603px] text-white">
       <div className="self-center text-6xl whitespace-nowrap leading-[63.84px] max-md:text-4xl pb-5">
         Log In
       </div>
-      <div className=" flex justify-center mt-2 text-slate-900">
+      <div className=" flex justify-center mt-2 text-white">
         New to True Market Leaders? {'  '}
         <Link to="/signup">
           <span className="font-bold"> Sign up here!</span>
         </Link>
       </div>
-      <div className="flex flex-col p-6 mt-2 text-base font-semibold rounded-xl bg-blue-900 max-md:px-5 max-md:max-w-full">
+      <div className="flex flex-col p-6 mt-2 text-base font-semibold rounded-xl bg-gradient-to-br from-gray-600 to-gray-800 max-md:px-5 max-md:max-w-full">
         <form onSubmit={handleSubmit}>
           <div className="justify-center items-start py-4 pr-16 pl-6 mt-4 whitespace-nowrap rounded-xl bg-slate-50 max-md:px-5 max-md:max-w-full">
             <input
@@ -125,7 +125,7 @@ const LogInComp = ({ setEmail,setEmailAddress }) => {
           </div>
           <button
             type="submit"
-            className="justify-center items-center px-60 py-4 mt-4 whitespace-nowrap bg-indigo-400 rounded-xl text-slate-50 max-md:px-5 max-md:max-w-full"
+            className="justify-center items-center px-60 py-4 mt-4 whitespace-nowrap bg-gradient-to-br from-gray-500 to-gray-600 rounded-xl text-slate-50 max-md:px-5 max-md:max-w-full"
           >
             Log In
           </button>
