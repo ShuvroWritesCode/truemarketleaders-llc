@@ -52,7 +52,7 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
       
         <div className="flex items-center space-x-4 max-md:space-x-1">
           <ul
-            className={`flex text-gray-200 font-semibold md:space-x-4 max-md:space-x-3 max-md:text-md`}
+            className={`flex text-gray-200 font-semibold md:space-x-4 max-md:space-x-3 max-md:text-sm`}
           >
             {/* <div className='md:flex md:space-x-4 max-md:flex-col'> */}
             <li>
