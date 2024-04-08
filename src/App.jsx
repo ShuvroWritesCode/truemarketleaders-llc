@@ -61,9 +61,9 @@ function App() {
           <Route path="/about-us" element={<About />} />
           <Route
             path="/login"
-            element={<Login setIsLoggedIn={setIsLoggedIn} />}
+            element={isLoggedIn? <Navigate to="/" /> :<Login setIsLoggedIn={setIsLoggedIn} />}
           />
-          <Route path="/signup" element={<SignUp />} />
+          <Route path="/signup" element={isLoggedIn? <Navigate to="/" /> : <SignUp />} />
           <Route
             path="/pricing"
             element={
@@ -72,8 +72,7 @@ function App() {
           />
           <Route
             path="/services"
-            // element={isLoggedIn ? <Services /> : <Navigate to="/login" />}
-            element={<Services />}
+            element={isLoggedIn ? <Services /> : <Navigate to="/login" />}
           />
         </Routes>
         <Footer />
