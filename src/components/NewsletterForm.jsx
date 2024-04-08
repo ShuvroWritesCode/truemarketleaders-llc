@@ -20,7 +20,7 @@ function NewsletterForm() {
           className="flex-grow px-4 py-2 bg-transparent border-none focus:outline-none text-gray-700 w-[80%] placeholder-black"
           
         />
-        <button className="px-6 py-3 bg-primary text-white rounded-full hover:bg-blue-700 transition-colors duration-300">
+        <button className="px-6 py-3 bg-gradient-to-br from-gray-500 to-gray-600 text-white rounded-full">
           Subscribe
         </button>
       </div>

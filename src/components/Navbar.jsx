@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
   const [isMenuOpen, setMenuOpen] = useState(false);
-  console.log(isLoggedIn);
+  console.log(isLoggedIn)
 
   const location = useLocation();
   const navigate = useNavigate();

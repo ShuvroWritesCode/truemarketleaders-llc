@@ -36,6 +36,7 @@ const Services = () => {
         }));
         // Set the data state with the formatted data
         setData(formattedData);
+        setSelectedStock(formattedData[0].symbol)
       } else {
         console.error(
           'Response data does not contain an array of tickers:',

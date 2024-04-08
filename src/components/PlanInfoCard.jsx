@@ -1,67 +1,71 @@
 import React, { useState } from "react";
 
-import { loadStripe } from "@stripe/stripe-js";
+// import { loadStripe } from "@stripe/stripe-js";
 import { useNavigate } from "react-router-dom";
 
 // const public_stripe_key = process.env.RE
-const public_stripe_key = '';
+// const public_stripe_key = '';
 function PlanInfoCard({ planFeatures, isLoggedIn, emailAddress }) {
   const [selectedPeriod, setSelectedPeriod] = useState("Quarterly");
   const navigate = useNavigate();
 
-  const handleSubscription = async () => {
-
-
-    if(!isLoggedIn){
-      navigate('/login');
-    }else{
-
-    let lookupKey;
-    switch (selectedPeriod) {
-      case "Quarterly":
-        lookupKey = "quarterly";
-        break;
-      case "Bi-Annually":
-        lookupKey = "biannual";
-        break;
-      case "Annually":
-        lookupKey = "annual";
-        break;
-      default:
-        lookupKey = "quarterly"; // Set a default value or handle error case
-    }
-    const stripePromise = await loadStripe(public_stripe_key);
-    try {
-      console.log(emailAddress);
-      const response = await fetch(
-        "http://localhost:3000/create-stripe-session-subscription",
-        {
-          method: "POST",
-          headers: { "Content-Type": "Application/JSON" },
-          // body: JSON.stringify([
-          //   { item: "Online Video Editor", qty: "3", itemCode: "99" },
-          // ]),
-          body: JSON.stringify({ lookup_key: lookupKey, email: emailAddress}),
-        }
-      );
-  
-      if (response.status === 409) {
-        const data = await response.json();
-        if (data && data.redirectUrl) {
-          window.location.href = data.redirectUrl; // redirect to billing portal if user is already subscribed
-        }
-      } else {
-        const session = await response.json();
-        stripePromise.redirectToCheckout({
-          sessionId: session.id,
-        });
-      }
-    } catch (error) {
-      console.error("Error handling subscription:", error);
-      // Handle error
-    }
+  const handleSubscription = () =>{
+    navigate('/');
   }
-  };
+
+  // const handleSubscription = async () => {
+
+
+  //   if(!isLoggedIn){
+  //     navigate('/login');
+  //   }else{
+
+  //   let lookupKey;
+  //   switch (selectedPeriod) {
+  //     case "Quarterly":
+  //       lookupKey = "quarterly";
+  //       break;
+  //     case "Bi-Annually":
+  //       lookupKey = "biannual";
+  //       break;
+  //     case "Annually":
+  //       lookupKey = "annual";
+  //       break;
+  //     default:
+  //       lookupKey = "quarterly"; // Set a default value or handle error case
+  //   }
+  //   const stripePromise = await loadStripe(public_stripe_key);
+  //   try {
+  //     console.log(emailAddress);
+  //     const response = await fetch(
+  //       "http://localhost:3000/create-stripe-session-subscription",
+  //       {
+  //         method: "POST",
+  //         headers: { "Content-Type": "Application/JSON" },
+  //         // body: JSON.stringify([
+  //         //   { item: "Online Video Editor", qty: "3", itemCode: "99" },
+  //         // ]),
+  //         body: JSON.stringify({ lookup_key: lookupKey, email: emailAddress}),
+  //       }
+  //     );
+  
+  //     if (response.status === 409) {
+  //       const data = await response.json();
+  //       if (data && data.redirectUrl) {
+  //         window.location.href = data.redirectUrl; // redirect to billing portal if user is already subscribed
+  //       }
+  //     } else {
+  //       const session = await response.json();
+  //       stripePromise.redirectToCheckout({
+  //         sessionId: session.id,
+  //       });
+  //     }
+  //   } catch (error) {
+  //     console.error("Error handling subscription:", error);
+  //     // Handle error
+  //   }
+  // }
+  // };
 
 
   const handleClick = (period) => {

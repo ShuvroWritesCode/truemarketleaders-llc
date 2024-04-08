@@ -85,11 +85,19 @@ const ChartComponent = ({ symbol }) => {
 
       candlestickSeries.setData(mappedData, [chartWidth, chartHeight]);
 
+      const resizeObserver = new ResizeObserver(entries => {
+        if (entries.length === 0 || entries[0].target !== containerRef.current) { return; }
+        const newRect = entries[0].contentRect;
+        chart.applyOptions({ height: newRect.height, width: newRect.width });
+      });
+      resizeObserver.observe(containerRef.current);
+
       chart.timeScale().fitContent();
 
       // Cleanup function to remove the chart on component unmount
       return () => {
         chart.remove();
+        resizeObserver.disconnect();
       };
     }
   }, [data]); // Dependency on the 'data' array
