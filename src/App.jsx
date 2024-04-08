@@ -7,17 +7,24 @@ import Purchase from './pages/Purchase';
 import Services from './pages/Services';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Plan from './pages/Plan';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [emailAddress, setEmailAddress] = useState('');
+
+  // useEffect(()=>{
+  //   console.log(isLoggedIn);
+  // })
 
   return (
     <>
       <div className=" bg-gray-900 flex flex-col">
-        <Navbar />
+      <ToastContainer />
+        <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about-us" element={<About />} />

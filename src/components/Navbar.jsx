@@ -2,8 +2,9 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-const Navbar = ({ loggedIn, setEmail, setIsAdmin, setEmailAddress }) => {
+const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
   const [isMenuOpen, setMenuOpen] = useState(false);
+  console.log(isLoggedIn);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -29,9 +30,7 @@ const Navbar = ({ loggedIn, setEmail, setIsAdmin, setEmailAddress }) => {
           credentials: 'include', 
         }
       );
-      setIsAdmin(false);
-      setEmail(false);
-      setEmailAddress("");
+      setIsLoggedIn(false);
 
       navigate('/'); 
     } catch (error) {
@@ -80,7 +79,7 @@ const Navbar = ({ loggedIn, setEmail, setIsAdmin, setEmailAddress }) => {
           </ul>
 
           {/* Signup and Login buttons */}
-          {loggedIn ? (
+          {isLoggedIn ? (
             <button className=" border text-white font-bold max-md:font-semibold  text-sm rounded-3xl px-6 max-md:px-4 py-2 max-md:py-1">
               <Link to="/" onClick={handleLogout} className="hover:text-gray-400">
                 Logout

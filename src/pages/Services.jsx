@@ -66,7 +66,7 @@ const Services = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const selectedSymbol = event.target.elements.stock.value.trim();
+    const selectedSymbol = event.target.elements.stock.value.trim().toUpperCase();
 
     if (selectedSymbol === '') {
       console.log('Please enter a stock symbol.');
@@ -74,7 +74,7 @@ const Services = () => {
     }
 
     const foundSymbol = stockDetails.find(
-      (data) => data.symbol.toLowerCase() === selectedSymbol.toLowerCase()
+      (data) => data.symbol === selectedSymbol
     );
 
     if (!foundSymbol) {
@@ -93,23 +93,24 @@ const Services = () => {
         <div className="w-full h-full bg-gradient-to-br rounded-lg from-gray-700 to-gray-800 p-5 ">
           {/* Chart Area */}
           <p className="text-white my-2">Selected Stock: {selectedStock}</p>
-          <ChartComponent symbol={selectedStock} />
           <form onSubmit={handleSubmit}>
             <input
               type="text"
               name="stock"
               placeholder="Enter stock symbol..."
-              className="text-white bg-gray-600 rounded-md px-4 py-2 mb-2 focus:outline-none focus:ring focus:border-blue-300"
+              className="text-white bg-gray-600 rounded-md px-4 py-2 mb-2 mr-4 focus:outline-none focus:ring focus:border-blue-300"
               value={searchValue}
               onChange={handleStockSearch}
             />
             <button
               type="submit"
-              className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring focus:border-blue-300"
+              className="bg-gradient-to-br from-gray-500 to-gray-600  text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring focus:border-blue-300"
             >
               Search
             </button>
           </form>
+          <ChartComponent symbol={selectedStock} />
+          
         </div>
 
         {/* Right Section - Split Vertically */}

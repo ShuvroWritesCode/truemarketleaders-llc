@@ -1,13 +1,13 @@
-import axios from 'axios';
+import axios from "axios";
 
-import { Link, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { useState } from 'react';
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useState } from "react";
 
 const LogInComp = ({ setIsLoggedIn }) => {
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
   const navigate = useNavigate();
   // const { isAuthenticated, login, logout } = useContext(AuthContext);
@@ -19,43 +19,43 @@ const LogInComp = ({ setIsLoggedIn }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log('HI');
+      console.log("HI");
       const response = await axios.post(
-        'http://localhost:3000/api/login',
+        "http://localhost:3000/api/login",
         JSON.stringify(formData),
         {
           headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
+            Accept: "application/json",
+            "Content-Type": "application/json",
           },
           withCredentials: true,
-          credentials: 'include',
+          credentials: "include",
         }
       );
       console.log(response.status);
       // console.log(setIsLoggedIn);
       // setIsLoggedIn(true);
       if (response.status === 200) {
-        console.log(setIsLoggedIn);
-        navigate('/services');
-        toast.success('Login Successful');
+        setIsLoggedIn(true);
+        toast.success("Login Successful");
+        navigate("/services");
       }
     } catch (error) {
       if (error.response) {
         const status = error.response.status;
         if (status === 401) {
-          toast.error('Incorrect Password');
+          toast.error("Incorrect Password");
         } else if (status === 404) {
-          toast.error('User not found');
+          toast.error("User not found");
         } else if (status === 422) {
-          toast.error('Email and password are required');
+          toast.error("Email and password are required");
         } else if (status === 500) {
-          toast.error('Internal Server Error');
+          toast.error("Internal Server Error");
         } else {
-          toast.error('An error occurred');
+          toast.error("An error occurred");
         }
       } else {
-        toast.error('Network Error');
+        toast.error("Network Error");
       }
     }
   };
@@ -66,7 +66,7 @@ const LogInComp = ({ setIsLoggedIn }) => {
         Log In
       </div>
       <div className=" flex justify-center mt-2 text-white">
-        New to True Market Leaders? {'  '}
+        New to True Market Leaders? {"  "}
         <Link to="/signup">
           <span className="font-bold"> Sign up here!</span>
         </Link>
@@ -82,6 +82,7 @@ const LogInComp = ({ setIsLoggedIn }) => {
               value={formData.email}
               onChange={handleChange}
               className="appearance-none border-none bg-transparent w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
+              required // Make email field required
             />
           </div>
           <div className="justify-center items-start py-4 pr-16 pl-6 mt-4 whitespace-nowrap rounded-xl bg-slate-50 max-md:px-5 max-md:max-w-full">
@@ -93,8 +94,12 @@ const LogInComp = ({ setIsLoggedIn }) => {
               value={formData.password}
               onChange={handleChange}
               className="appearance-none border-none bg-transparent w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
+              required // Make password field required
+              pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" // Password pattern: at least 8 characters including a number
+              title="Password must be at least 8 characters long and include at least one number"
             />
           </div>
+
           <button
             type="submit"
             className="justify-center items-center px-60 py-4 mt-4 whitespace-nowrap bg-gradient-to-br from-gray-500 to-gray-600 rounded-xl text-slate-50 max-md:px-5 max-md:max-w-full"
