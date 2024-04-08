@@ -1,11 +1,12 @@
 // ChartPage.jsx
-import React, { useState, useEffect } from "react";
-import ChartComponent from "../components/ChartComponent";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import ChartComponent from '../components/ChartComponent';
+import axios from 'axios';
 
 const Services = () => {
   const [showContent, setShowContent] = useState(false);
-  const [selectedStock, setSelectedStock] = useState("");
+  const [selectedStock, setSelectedStock] = useState('');
+  const [searchValue, setsearchValue] = useState('');
 
   const toggleContent = () => {
     setShowContent(!showContent);
@@ -20,7 +21,7 @@ const Services = () => {
   const fetchDataFromAPI = async () => {
     try {
       // Fetch data from the backend API endpoint
-      const response = await axios.get("http://localhost:3000/api/details");
+      const response = await axios.get('http://localhost:3000/api/details');
 
       // Check if response.data has the 'tickers' property and it is an array
       if (response.data && Array.isArray(response.data.tickers)) {
@@ -37,12 +38,12 @@ const Services = () => {
         setData(formattedData);
       } else {
         console.error(
-          "Response data does not contain an array of tickers:",
+          'Response data does not contain an array of tickers:',
           response.data
         );
       }
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error('Error fetching data:', error);
     }
   };
 
@@ -58,6 +59,32 @@ const Services = () => {
     // Call the fetch function when the component mounts
     fetchDataFromAPI();
   }, []);
+
+  const handleStockSearch = (event) => {
+    setsearchValue(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const selectedSymbol = event.target.elements.stock.value.trim();
+
+    if (selectedSymbol === '') {
+      console.log('Please enter a stock symbol.');
+      return;
+    }
+
+    const foundSymbol = stockDetails.find(
+      (data) => data.symbol.toLowerCase() === selectedSymbol.toLowerCase()
+    );
+
+    if (!foundSymbol) {
+      console.log(`Stock symbol "${selectedSymbol}" not found.`);
+      return; // Exit the function if symbol not found
+    }
+
+    setSelectedStock(selectedSymbol);
+  };
+
   return (
     <div className="container px-8 max-md:px-1 py-8 mx-0 h-svh">
       <div className="flex gap-4 max-md:hidden h-full">
@@ -67,7 +94,24 @@ const Services = () => {
           {/* Chart Area */}
           <p className="text-white my-2">Selected Stock: {selectedStock}</p>
           <ChartComponent symbol={selectedStock} />
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              name="stock"
+              placeholder="Enter stock symbol..."
+              className="text-white bg-gray-600 rounded-md px-4 py-2 mb-2 focus:outline-none focus:ring focus:border-blue-300"
+              value={searchValue}
+              onChange={handleStockSearch}
+            />
+            <button
+              type="submit"
+              className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring focus:border-blue-300"
+            >
+              Search
+            </button>
+          </form>
         </div>
+
         {/* Right Section - Split Vertically */}
         <div className="w-[30%] ml-2 h-full ">
           {/* Upper Half */}
@@ -75,8 +119,8 @@ const Services = () => {
             <div
               className="md:w-full h-full rounded-lg bg-gradient-to-br custom-scrollbar overflow-hidden from-gray-700 to-gray-800 p-6"
               // style={{ overflowY: 'hidden' }}
-              onMouseEnter={(e) => (e.currentTarget.style.overflowY = "auto")}
-              onMouseLeave={(e) => (e.currentTarget.style.overflowY = "hidden")}
+              onMouseEnter={(e) => (e.currentTarget.style.overflowY = 'auto')}
+              onMouseLeave={(e) => (e.currentTarget.style.overflowY = 'hidden')}
             >
               {/* Upper Half Content */}
               <div className="flex justify-between mb-2">
@@ -95,14 +139,14 @@ const Services = () => {
                   <span className="text-sm">{detail.last}</span>
                   <span
                     className={`text-sm ${
-                      detail.change > 0 ? "text-green-500" : "text-red-500"
+                      detail.change > 0 ? 'text-green-500' : 'text-red-500'
                     }`}
                   >
                     {detail.change}
                   </span>
                   <span
                     className={`text-sm ${
-                      detail.change > 0 ? "text-green-500" : "text-red-500"
+                      detail.change > 0 ? 'text-green-500' : 'text-red-500'
                     }`}
                   >
                     ({detail.changePercent}%)
@@ -143,9 +187,9 @@ const Services = () => {
               <div
                 className="md:w-full h-full rounded-lg bg-gradient-to-br custom-scrollbar overflow-hidden from-gray-700 to-gray-800 p-6"
                 // style={{ overflowY: 'hidden' }}
-                onMouseEnter={(e) => (e.currentTarget.style.overflowY = "auto")}
+                onMouseEnter={(e) => (e.currentTarget.style.overflowY = 'auto')}
                 onMouseLeave={(e) =>
-                  (e.currentTarget.style.overflowY = "hidden")
+                  (e.currentTarget.style.overflowY = 'hidden')
                 }
               >
                 {/* Upper Half Content */}
@@ -165,14 +209,14 @@ const Services = () => {
                     <span className="text-sm">{detail.last}</span>
                     <span
                       className={`text-sm ${
-                        detail.change > 0 ? "text-green-500" : "text-red-500"
+                        detail.change > 0 ? 'text-green-500' : 'text-red-500'
                       }`}
                     >
                       {detail.change}
                     </span>
                     <span
                       className={`text-sm ${
-                        detail.change > 0 ? "text-green-500" : "text-red-500"
+                        detail.change > 0 ? 'text-green-500' : 'text-red-500'
                       }`}
                     >
                       ({detail.changePercent}%)
