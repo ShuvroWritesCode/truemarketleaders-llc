@@ -11,8 +11,6 @@ const LogInComp = ({ setIsLoggedIn }) => {
   });
   const navigate = useNavigate();
   // const { isAuthenticated, login, logout } = useContext(AuthContext);
-  
-  
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -21,21 +19,27 @@ const LogInComp = ({ setIsLoggedIn }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log('HI');
       const response = await axios.post(
         'http://localhost:3000/api/login',
         JSON.stringify(formData),
-        // {
-        //   headers: {
-        //     Accept: 'application/json',
-        //     'Content-Type': 'application/json',
-        //   },
-        //   withCredentials: true,
-        //   credentials: 'include',
-        // }
+        {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
+          credentials: 'include',
+        }
       );
-      setIsLoggedIn(true);
-      navigate('/services');
-      toast.success('Login Successful');
+      console.log(response.status);
+      // console.log(setIsLoggedIn);
+      // setIsLoggedIn(true);
+      if (response.status === 200) {
+        console.log(setIsLoggedIn);
+        navigate('/services');
+        toast.success('Login Successful');
+      }
     } catch (error) {
       if (error.response) {
         const status = error.response.status;
@@ -55,7 +59,7 @@ const LogInComp = ({ setIsLoggedIn }) => {
       }
     }
   };
-  
+
   return (
     <div className="flex flex-col p-4 max-w-[603px] text-white">
       <div className="self-center text-6xl whitespace-nowrap leading-[63.84px] max-md:text-4xl pb-5">

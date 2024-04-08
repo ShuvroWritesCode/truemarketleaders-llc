@@ -1,12 +1,12 @@
-import React from 'react'
-import LogInComp from '../components/LogInComp'
+import React from 'react';
+import LogInComp from '../components/LogInComp';
 
-const Login = ({setEmail, setEmailAddress}) => {
+const Login = ({ setEmail, setEmailAddress }) => {
   return (
     <div className="flex justify-center items-center">
-      <LogInComp setEmail={setEmail} setEmailAddress={setEmailAddress}/>
+      <LogInComp setEmail={setEmail} setEmailAddress={setEmailAddress} />
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
