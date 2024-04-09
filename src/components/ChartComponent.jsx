@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { ColorType, createChart } from 'lightweight-charts';
 import axios from 'axios';
 
-const BACKEND_URI = process.env.BACKEND_URI;
+const BACKEND_URI=import.meta.env.VITE_BACKEND_URI;
 
 
 const ChartComponent = ({ symbol }) => {

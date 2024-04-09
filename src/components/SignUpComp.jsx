@@ -4,7 +4,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 // import { auth } from '../utlis/firebase';
 
-const BACKEND_URI = process.env.BACKEND_URI;
+const BACKEND_URI=import.meta.env.VITE_BACKEND_URI;
 
 const SignUpComp = () => {
   const navigate = useNavigate();

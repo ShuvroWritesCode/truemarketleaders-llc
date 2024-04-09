@@ -2,11 +2,11 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-const BACKEND_URI = process.env.BACKEND_URI;
+const BACKEND_URI=import.meta.env.VITE_BACKEND_URI;
 
 const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
   const [isMenuOpen, setMenuOpen] = useState(false);
-  console.log(isLoggedIn)
+  // console.log(isLoggedIn)
 
   const location = useLocation();
   const navigate = useNavigate();

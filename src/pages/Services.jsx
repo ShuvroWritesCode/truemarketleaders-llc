@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import ChartComponent from '../components/ChartComponent';
 import axios from 'axios';
 
-const BACKEND_URI = process.env.BACKEND_URI;
+const BACKEND_URI=import.meta.env.VITE_BACKEND_URI;
 
 const Services = () => {
   const [showContent, setShowContent] = useState(false);

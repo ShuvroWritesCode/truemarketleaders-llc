@@ -13,11 +13,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { PropagateLoader } from 'react-spinners';
 
+
+const BACKEND_URI=import.meta.env.VITE_BACKEND_URI;
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(null);
   const [emailAddress, setEmailAddress] = useState('');
   const [loading, setLoading] = useState(true);
-  const BACKEND_URI = process.env.BACKEND_URI;
+
   useEffect(()=>{
     const fetchData = async () => {
     try{

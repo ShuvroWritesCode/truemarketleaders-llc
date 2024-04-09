@@ -4,9 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useState } from "react";
 
-const BACKEND_URI = process.env.BACKEND_URI;
+const BACKEND_URI=import.meta.env.VITE_BACKEND_URI;
 
 const LogInComp = ({ setIsLoggedIn }) => {
+  // console.log(BACKEND_URI)
   const [formData, setFormData] = useState({
     email: "",
     password: "",
