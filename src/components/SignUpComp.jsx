@@ -94,8 +94,9 @@ const SignUpComp = () => {
               onChange={handleChange}
               className="appearance-none border-none bg-transparent w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
               required // Make password field required
-              pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" // Password pattern: at least 8 characters including a number
-              title="Password must be at least 8 characters long and include at least one number"
+              minLength="8"
+              pattern="^(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$" 
+              title="Password must be at least 8 characters long & include one number and one character"
             />
           </div>
           <div className="justify-center items-start py-4 pr-16 pl-6 mt-4 whitespace-nowrap rounded-xl bg-slate-50 max-md:px-5 max-md:max-w-full">
@@ -107,8 +108,10 @@ const SignUpComp = () => {
               value={formData.confirmPassword}
               onChange={handleChange}
               className="appearance-none border-none bg-transparent w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
-              required // Make confirm password field required
-              pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+              required
+              minLength="8"
+              pattern="^(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$" 
+              title="Password must be at least 8 characters long & include one number and one character"
             />
           </div>
           <button

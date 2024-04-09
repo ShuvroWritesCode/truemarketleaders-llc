@@ -22,7 +22,6 @@ const LogInComp = ({ setIsLoggedIn }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log("HI");
       const response = await axios.post(
         `${BACKEND_URI}/login`
         ,JSON.stringify(formData),
@@ -35,7 +34,7 @@ const LogInComp = ({ setIsLoggedIn }) => {
           credentials: "include",
         }
       );
-      console.log(response.status);
+
       // console.log(setIsLoggedIn);
       // setIsLoggedIn(true);
       if (response.status === 200) {
@@ -98,8 +97,9 @@ const LogInComp = ({ setIsLoggedIn }) => {
               onChange={handleChange}
               className="appearance-none border-none bg-transparent w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
               required // Make password field required
-              pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" // Password pattern: at least 8 characters including a number
-              title="Password must be at least 8 characters long and include at least one number"
+              minLength="8"
+              pattern="^(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$" 
+              title="Password must be at least 8 characters long and include at least one number and one character"
             />
           </div>
 

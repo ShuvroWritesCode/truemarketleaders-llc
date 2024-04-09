@@ -24,7 +24,7 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
   const handleLogout = async () => {
     try {
 
-      await axios.post(
+      const response = await axios.post(
         `${BACKEND_URI}/logout`,
         {},
         {
@@ -32,8 +32,9 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
           credentials: 'include', 
         }
       );
+      console.log(response.status);
       setIsLoggedIn(false);
-
+      console.log(isLoggedIn)
       navigate('/'); 
     } catch (error) {
       console.error('Error during logout:', error.message);
