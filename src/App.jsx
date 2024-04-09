@@ -17,11 +17,13 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(null);
   const [emailAddress, setEmailAddress] = useState('');
   const [loading, setLoading] = useState(true);
-
+  const BACKEND_URI = process.env.BACKEND_URI;
   useEffect(()=>{
     const fetchData = async () => {
     try{
-      const response = await axios.get('http://localhost:3000/api/authenticate', { withCredentials: true });
+      const response = await axios.get(
+      `${BACKEND_URI}/authenticate`
+      , { withCredentials: true });
 
       if (response.status === 200) {
       setIsLoggedIn(response.data.isAuthenticated);

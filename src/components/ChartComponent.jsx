@@ -3,6 +3,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import { ColorType, createChart } from 'lightweight-charts';
 import axios from 'axios';
 
+const BACKEND_URI = process.env.BACKEND_URI;
+
+
 const ChartComponent = ({ symbol }) => {
   //   const [data, setData] = useState([]);
   const containerRef = useRef(null);
@@ -20,7 +23,9 @@ const ChartComponent = ({ symbol }) => {
     console.log(symbol);
     try {
       // Fetch data from the backend API endpoint
-      const response = await axios.post('http://localhost:3000/api/show', {
+      const response = await axios.post(
+      `${BACKEND_URI}/show`
+      , {
         ticker: symbol,
       });
       // Set the data state with the response data

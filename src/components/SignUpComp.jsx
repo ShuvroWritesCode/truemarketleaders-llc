@@ -4,6 +4,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 // import { auth } from '../utlis/firebase';
 
+const BACKEND_URI = process.env.BACKEND_URI;
+
 const SignUpComp = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -22,7 +24,7 @@ const SignUpComp = () => {
     const { email, password } = formData;
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/signup",
+        `${BACKEND_URI}/signup`,
         formData
       );
 

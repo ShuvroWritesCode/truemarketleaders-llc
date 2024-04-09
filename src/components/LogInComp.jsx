@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useState } from "react";
 
+const BACKEND_URI = process.env.BACKEND_URI;
+
 const LogInComp = ({ setIsLoggedIn }) => {
   const [formData, setFormData] = useState({
     email: "",
@@ -21,8 +23,8 @@ const LogInComp = ({ setIsLoggedIn }) => {
     try {
       console.log("HI");
       const response = await axios.post(
-        "http://localhost:3000/api/login",
-        JSON.stringify(formData),
+        `${BACKEND_URI}/login`
+        ,JSON.stringify(formData),
         {
           headers: {
             Accept: "application/json",

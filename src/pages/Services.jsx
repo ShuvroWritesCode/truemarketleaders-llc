@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import ChartComponent from '../components/ChartComponent';
 import axios from 'axios';
 
+const BACKEND_URI = process.env.BACKEND_URI;
+
 const Services = () => {
   const [showContent, setShowContent] = useState(false);
   const [selectedStock, setSelectedStock] = useState('');
@@ -21,7 +23,7 @@ const Services = () => {
   const fetchDataFromAPI = async () => {
     try {
       // Fetch data from the backend API endpoint
-      const response = await axios.get('http://localhost:3000/api/details');
+      const response = await axios.get(`${BACKEND_URI}/details`);
 
       // Check if response.data has the 'tickers' property and it is an array
       if (response.data && Array.isArray(response.data.tickers)) {
