@@ -125,7 +125,7 @@ const SignUpComp = () => {
         <div className="self-center mt-4 text-white whitespace-nowrap">
           <Link to="/login">Already have an account?</Link>
         </div>
-        <div className="self-center mt-4 text-white">Or</div>
+        {/* <div className="self-center mt-4 text-white">Or</div> */}
         {/* <div className="flex justify-center">
           <button
             onClick={handleClick}

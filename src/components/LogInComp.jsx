@@ -113,7 +113,7 @@ const LogInComp = ({ setIsLoggedIn }) => {
         <div className="self-center mt-4 text-white whitespace-nowrap">
           Already have an account?
         </div>
-        <div className="self-center mt-4 text-white">Or</div>
+        {/* <div className="self-center mt-4 text-white">Or</div> */}
         {/* <div className="flex justify-center">
           <button
             onClick={handleClick}

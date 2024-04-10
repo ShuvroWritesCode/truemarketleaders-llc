@@ -46,8 +46,11 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
       {/* Left side with app name/logo */}
       <div className="flex items-center cursor-pointer" onClick={handleClick}>
         {/* <img src="/logo.png" alt="Logo" className="h-16 w-16 mr-2" />{" "} */}
-        <h1 className="font-bold text-2xl text-white">
+        <h1 className="font-bold text-2xl text-white max-md:hidden">
           True Market Leaders
+        </h1>
+        <h1 className="font-bold text-2xl text-white md:hidden">
+          TML
         </h1>
       </div>
 
@@ -55,10 +58,10 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
       
         <div className="flex items-center space-x-4 max-md:space-x-1">
           <ul
-            className={`flex text-gray-200 font-semibold md:space-x-4 max-md:space-x-3 max-md:text-sm`}
+            className={`flex text-gray-200 font-semibold md:space-x-4 max-md:space-x-3 max-md:text-sm mr-2`}
           >
             {/* <div className='md:flex md:space-x-4 max-md:flex-col'> */}
-            <li>
+            <li className="max-md:hidden">
               <Link to="/" className="hover:text-gray-400 ">
                 Home
               </Link>
@@ -73,7 +76,7 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
                 About Us
               </Link>
             </li>
-            <li>
+            <li className="max-md:hidden">
               <Link to="/pricing" className="hover:text-gray-400">
                 Pricing
               </Link>
@@ -83,19 +86,19 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
 
           {/* Signup and Login buttons */}
           {isLoggedIn ? (
-            <button className=" border text-white font-bold max-md:font-semibold  text-sm rounded-3xl px-6 max-md:px-4 py-2 max-md:py-1">
+            <button className=" border text-white font-bold max-md:font-semibold  text-sm rounded-3xl md:px-6 max-md:px-3 py-2 max-md:py-1">
               <Link to="/" onClick={handleLogout} className="hover:text-gray-400">
                 Logout
               </Link>
             </button>
           ) : (
             <>
-              <button className=" border text-white font-bold max-md:font-semibold text-sm rounded-3xl px-6 max-md:px-4 py-2 max-md:py-1">
+              <button className=" border text-white font-bold max-md:font-semibold text-sm rounded-3xl md:px-6 max-md:px-3 py-2 max-md:py-1">
                 <Link to="/signup" className="hover:text-gray-400">
                   SignUp
                 </Link>
               </button>
-              <button className=" border text-white font-bold max-md:font-semibold text-sm rounded-3xl px-6 max-md:px-4 py-2 max-md:py-1">
+              <button className=" border text-white font-bold max-md:font-semibold text-sm rounded-3xl md:px-6 max-md:px-3 py-2 max-md:py-1">
                 <Link to="/login" className="hover:text-gray-400">
                   LogIn
                 </Link>
