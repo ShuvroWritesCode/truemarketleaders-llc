@@ -178,6 +178,22 @@ const Services = () => {
         <div className="w-full h-full bg-gradient-to-br rounded-lg from-gray-700 to-gray-800 p-5 relative z-0">
           {/* Chart Area */}
           <p className="text-white my-2">Selected Stock: {selectedStock}</p>
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              name="stock"
+              placeholder="Enter stock symbol..."
+              className="text-white bg-gray-600 rounded-md px-4 py-2 mb-2 mr-4 focus:outline-none focus:ring focus:border-blue-300"
+              value={searchValue}
+              onChange={handleStockSearch}
+            />
+            <button
+              type="submit"
+              className="bg-gradient-to-br from-gray-500 to-gray-600  text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring focus:border-blue-300"
+            >
+              Search
+            </button>
+          </form>
           <ChartComponent symbol={selectedStock} />
         </div>
 
@@ -189,7 +205,7 @@ const Services = () => {
             {/* Upper Half */}
             <div className="mb-4 h-[100%] bg-transparent">
               <div
-                className="md:w-full h-full rounded-lg bg-gradient-to-br custom-scrollbar overflow-hidden from-gray-700 to-gray-800 p-6"
+                className="md:w-full h-full rounded-lg bg-gradient-to-br custom-scrollbar overflow-auto from-gray-700 to-gray-800 p-6"
                 // style={{ overflowY: 'hidden' }}
                 onMouseEnter={(e) => (e.currentTarget.style.overflowY = 'auto')}
                 onMouseLeave={(e) =>
